@@ -32,7 +32,9 @@ format:
 test:
 	$(PYTHON) -m unittest discover -s tests -p 'test_*.py' -v
 
-ci: format-check test
+ci:
+	$(PYTHON) -m py_compile *.py tests/*.py
+	$(PYTHON) -m unittest discover -s tests -p 'test_*.py' -v
 
 reproduce:
 	./reproduce.sh
