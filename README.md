@@ -126,17 +126,17 @@ The callback-based outer approximation shows:
 
 ### Covered Numerical Experiment (Solved Problem)
 
-For our first numerical experiment, we consider problem $(P)$ with the
+In the numerical experiment, we consider problem $(P)$ with the
 construction discussed in Section 3.1 of the thesis, with
 $F : L^2(\Omega)\to\mathbb{R}$ defined by
-$F(v)=\frac{1}{2}\lVert S(v+f)-y_d\rVert_{L^2(\Omega)}^2$,
+$F(v)=\frac{1}{2}\lVert S(v+f)-y_d\rVert_{L^2(\Omega)}^2$
 where $f,y_d\in L^2(\Omega)$.
 
 The solution operator $S : L^2(\Omega)\to H_0^1(\Omega)$ is defined by:
 find $y=S(w)\in H_0^1(\Omega)$ such that
 
 $$
--\beta\,\Delta y + y = w
+-\beta\ \Delta y + y = w
 \quad\text{in }\Omega,
 \qquad
 y = 0
@@ -150,12 +150,12 @@ Therefore, we solve on $\Omega=(0,2)^2$:
 
 $$
 \min_{v\in L^2(\Omega)}
-\frac{1}{2}\lVert y-y_d\rVert_{L^2(\Omega)}^2 + \alpha\,TV(v)
+\frac{1}{2}\lVert y-y_d\rVert_{L^2(\Omega)}^2 + \alpha \TV(v)
 $$
 $$
 \text{s.t.}\quad
 \begin{cases}
--\,\beta\,\Delta y + y = v + f & \text{in }\Omega,\\
+-\beta \Delta y + y = v + f & \text{in }\Omega,\\
 y = 0 & \text{on }\partial\Omega,\\
 v(x)\in \Lambda=\{0,1\} & \text{for a.e. }x\in\Omega,
 \end{cases}
