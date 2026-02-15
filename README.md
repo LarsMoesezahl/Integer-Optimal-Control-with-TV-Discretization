@@ -126,38 +126,43 @@ The callback-based outer approximation shows:
 
 ### Covered Numerical Experiment (Solved Problem)
 
-In the numerical experiment we solve problem $(P)$ on
-$\Omega = (0,2)^2$ with
-$\mathcal{E}=\{0,1\}$ and $\omega>0$.
+For our first numerical experiment, we consider problem $(P)$ with the
+construction discussed in Section 3.1 of the thesis, with
+$F : L^2(\Omega)\to\mathbb{R}$ defined by
+$F(v)=\frac{1}{2}\lVert S(v+f)-y_d\rVert_{L^2(\Omega)}^2$,
+where $f,y_d\in L^2(\Omega)$.
 
-The reduced objective is
-
-$$
-F(v)=\frac12\|S(v+f)-y_d\|^2_{L^2(\Omega)},
-$$
-
-where $f,y_d\in L^2(\Omega)$ and the solution operator
-$S:L^2(\Omega)\to H_0^1(\Omega)$ is defined by:
+The solution operator $S : L^2(\Omega)\to H_0^1(\Omega)$ is defined by:
 find $y=S(w)\in H_0^1(\Omega)$ such that
 
 $$
--\nu\Delta y + y = w \quad \text{in }\Omega,
+-\beta\,\Delta y + y = w
+\quad\text{in }\Omega,
 \qquad
-y=0 \quad \text{on }\partial\Omega.
+y = 0
+\quad\text{on }\partial\Omega,
 $$
 
-With the construction from Section 3.1 of the thesis, the experiment solves
+with fixed $\beta>0$ and
+$p_1=\frac{1}{32}$, $p_2=\frac{31}{32}$.
+
+Therefore, we solve on $\Omega=(0,2)^2$:
 
 $$
 \min_{v\in L^2(\Omega)}
-\{F(v)+\omega\,TV(v)\}
-\quad\text{s.t.}\quad
-v(x)\in\{0,1\}\ \text{for a.e. }x\in\Omega.
+\frac{1}{2}\lVert y-y_d\rVert_{L^2(\Omega)}^2 + \alpha\,\operatorname{TV}(v)
+$$
+$$
+\text{s.t.}\quad
+\begin{cases}
+-\,\beta\,\Delta y + y = v + f & \text{in }\Omega,\\
+y = 0 & \text{on }\partial\Omega,\\
+v(x)\in \Lambda=\{0,1\} & \text{for a.e. }x\in\Omega,
+\end{cases}
 $$
 
-The benchmark uses a known optimal binary control
-$\bar v=\chi_D$ with
-$D=D_{0.5}(1,1)\subset\Omega$, i.e.
+with $\alpha>0$ and known optimal solution
+$D=D_{0.5}((1,1)^\top)\subset\Omega$:
 
 $$
 \bar v(x)=
