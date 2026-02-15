@@ -4,22 +4,19 @@ from __future__ import annotations
 
 import copy
 import gc
-
 from functools import cached_property
 
+import dolfinx
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy as sp
-from matplotlib import cm
-from scipy.interpolate import griddata
-
-import dolfinx
 import ufl
 from dolfinx import fem
 from dolfinx.fem import petsc
-
+from matplotlib import cm
 from mpi4py import MPI
 from petsc4py import PETSc
+from scipy.interpolate import griddata
 
 import utility
 

@@ -4,18 +4,18 @@ from __future__ import annotations
 
 import copy
 import itertools
+from functools import cached_property
 
 import numpy as np
 import scipy as sp
 
-from functools import cached_property
-
 import dolfinx
+import ufl
 from dolfinx import fem
 from mpi4py import MPI
-import utility
-import ufl
+
 import opt_tv_base as opt_tv_base
+import utility
 
 
 class CoarseTVHandler(opt_tv_base.OptTvBase):

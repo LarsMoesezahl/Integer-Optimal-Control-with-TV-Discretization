@@ -4,13 +4,7 @@ from __future__ import annotations
 
 import numpy as np
 from matplotlib import pyplot as plt
-from sympy import Piecewise
-from sympy import diff
-from sympy import exp
-from sympy import lambdify
-from sympy import plot
-from sympy import sqrt
-from sympy import symbols
+from sympy import Piecewise, diff, exp, lambdify, plot, sqrt, symbols
 from sympy.plotting import plot3d
 from sympy.printing import ccode
 

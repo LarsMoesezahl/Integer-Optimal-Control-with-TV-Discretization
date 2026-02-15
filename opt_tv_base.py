@@ -4,13 +4,11 @@ from __future__ import annotations
 
 import copy
 import itertools
-
-import numpy as np
-import scipy as sp
-
 from functools import cached_property
 
 import dolfinx
+import numpy as np
+import scipy as sp
 from dolfinx import fem
 from mpi4py import MPI
 

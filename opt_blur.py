@@ -3,14 +3,12 @@
 from __future__ import annotations
 
 import copy
+from functools import cached_property
 
 import numpy as np
 import scipy as sp
-
-from functools import cached_property
-
-from dolfinx import fem
 import ufl
+from dolfinx import fem
 
 import opt_tv_base
 import utility
