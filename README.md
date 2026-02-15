@@ -124,9 +124,9 @@ The callback-based outer approximation shows:
 - preserved integer feasibility,
 - better scalability than full upfront TV-constraint assembly.
 
-### First Numerical Experiment (Solved Problem)
+### Covered Numerical Experiment (Solved Problem)
 
-For the first numerical experiment, we solve problem $(P)$ on
+In the numerical experiment we solve problem $(P)$ on
 $\Omega = (0,2)^2$ with
 $\mathcal{E}=\{0,1\}$ and $\omega>0$.
 
