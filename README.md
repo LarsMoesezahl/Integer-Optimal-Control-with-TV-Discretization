@@ -16,27 +16,27 @@ The patch-based domain decomposition approach from the thesis is intentionally *
 
 We consider integer optimal control problems of the form
 
-\[
+$$
 \min_{v \in L^2(\Omega)}
 J(v) = F(v) + \omega \, TV(v)
-\]
+$$
 
 subject to
 
-\[
+$$
 v(x) \in \mathcal{E} \subset \mathbb{Z}
 \quad \text{a.e. in } \Omega,
-\]
+$$
 
 where:
 
-- \(F(v)\) is typically a tracking-type functional composed with a PDE solution operator,
-- \(TV(v)\) enforces compactness and prevents oscillatory chattering controls,
-- \(\mathcal{E}\) is a finite integer set.
+- $F(v)$ is typically a tracking-type functional composed with a PDE solution operator,
+- $TV(v)$ enforces compactness and prevents oscillatory chattering controls,
+- $\mathcal{E}$ is a finite integer set.
 
 Total variation regularization restores existence of minimizers in function space and penalizes perimeter of level sets.
 
-The theoretical foundation (existence, BV compactness, L-stationarity, and \(\Gamma\)-convergence) follows the framework developed in the thesis.
+The theoretical foundation (existence, BV compactness, L-stationarity, and $\Gamma$-convergence) follows the framework developed in the thesis.
 
 ## Algorithmic Framework
 
@@ -44,17 +44,17 @@ The theoretical foundation (existence, BV compactness, L-stationarity, and \(\Ga
 
 The optimization is solved with a **trust-region method in function space**:
 
-1. Linearize \(F\) at the current iterate \(\bar v\).
+1. Linearize $F$ at the current iterate $\bar v$.
 2. Keep the TV term exact.
 3. Solve the trust-region subproblem:
 
-\[
+$$
 \min_v \, (\nabla F(\bar v), v - \bar v) + \omega TV(v)
-\]
-\[
+$$
+$$
 \text{s.t. } |v - \bar v|_{L^1} \le \Delta,
 \quad v(x) \in \mathcal{E}
-\]
+$$
 
 The discretized subproblem yields a **Mixed-Integer Linear Program (MILP)**.
 
@@ -89,7 +89,7 @@ The implementation follows the dual-mesh construction from the thesis:
 
 Mesh sizes are superlinearly coupled to support:
 
-- \(\Gamma\)-convergence of the discretized TV,
+- $\Gamma$-convergence of the discretized TV,
 - recovery of the correct total variation in the limit,
 - preservation of integer feasibility.
 
