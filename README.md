@@ -150,7 +150,7 @@ Therefore, we solve on $\Omega=(0,2)^2$:
 
 $$
 \min_{v\in L^2(\Omega)}
-\frac{1}{2}\lVert y-y_d\rVert_{L^2(\Omega)}^2 + \alpha\,\operatorname{TV}(v)
+\frac{1}{2}\lVert y-y_d\rVert_{L^2(\Omega)}^2 + \alpha\,TV(v)
 $$
 $$
 \text{s.t.}\quad
