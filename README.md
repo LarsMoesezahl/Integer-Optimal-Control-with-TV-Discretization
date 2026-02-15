@@ -150,9 +150,9 @@ With the construction from Section 3.1 of the thesis, the experiment solves
 
 $$
 \min_{v\in L^2(\Omega)}
-\Bigl\{F(v)+\omega\,TV(v)\Bigr\}
+\left\{F(v)+\omega\,TV(v)\right\}
 \quad\text{s.t.}\quad
-v(x)\in\{0,1\}\ \text{a.e. in }\Omega.
+v(x)\in\{0,1\}\ \text{for a.e. }x\in\Omega.
 $$
 
 The benchmark uses a known optimal binary control
