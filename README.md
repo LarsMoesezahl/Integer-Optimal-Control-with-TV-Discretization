@@ -150,7 +150,7 @@ With the construction from Section 3.1 of the thesis, the experiment solves
 
 $$
 \min_{v\in L^2(\Omega)}
-\left\{F(v)+\omega\,TV(v)\right\}
+\{F(v)+\omega\,TV(v)\}
 \quad\text{s.t.}\quad
 v(x)\in\{0,1\}\ \text{for a.e. }x\in\Omega.
 $$
