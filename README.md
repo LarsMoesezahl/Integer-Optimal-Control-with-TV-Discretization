@@ -1,106 +1,177 @@
-# TV-Regularized Integer Optimal Control (FEniCSx + Gurobi)
+# TV-Regularized Integer Optimal Control
 
-This repository contains the code base for a master-thesis project on integer-valued PDE-constrained optimization with total-variation (TV) regularization.
+### Sequential Linear Integer Programming with Lazy Constraint Callback
 
-![Pipeline](docs/figures/pipeline.svg)
+This repository contains the implementation accompanying the master thesis:
 
-## Background
+> *Integrating Total Variation Discretization into Integer Optimal Control*  
+> Lars Moesezahl, TU Dortmund, 2025
 
-The project studies binary/integer control problems in function spaces where classical weak compactness fails for integer-valued feasible sets. TV regularization is used to recover compactness and avoid oscillatory controls.
+The code implements a **Sequential Linear Integer Programming (SLIP)** trust-region framework for solving integer-valued PDE-constrained optimization problems regularized by total variation (TV).
 
-From the thesis abstract and chapter structure, the implementation focus is:
+This repository focuses exclusively on the **callback-based outer-approximation enhancement** of the TV term.  
+The patch-based domain decomposition approach from the thesis is intentionally **not included** here.
 
-- Sequential trust-region optimization in a mixed-integer setting.
-- Outer-approximation style handling of TV via lazy constraints.
-- Coarse-grid and patch/domain-decomposition ideas for better practical runtime.
+## Problem Setting
 
-## What This Code Implements
+We consider integer optimal control problems of the form
 
-- Synthetic benchmark construction (`synthetic_problem.py`).
-- FEM state/adjoint assembly and solves on triangular meshes (`bvp_blur.py`).
-- Tracking-type objective and adjoint gradient (`opt_blur.py`).
-- TV operators and coarse/fine grid mappings (`opt_tv_base.py`, `tv_coarse_handler.py`).
-- Trust-region outer loop (`trust_region_solver.py`).
-- MIP trust-region subproblem with lazy cuts (`mip_subproblem.py`).
-- RT0 dual TV subproblem (`rt0_dual_solver.py`).
+\[
+\min_{v \in L^2(\Omega)}
+J(v) = F(v) + \omega \, TV(v)
+\]
 
-## Results Snapshot (Thesis-Grounded)
+subject to
 
-![Results Summary](docs/figures/results_summary.svg)
+\[
+v(x) \in \mathcal{E} \subset \mathbb{Z}
+\quad \text{a.e. in } \Omega,
+\]
 
-Reported in the thesis numerical experiments:
+where:
 
-- Runtime behavior improved with the proposed implementation enhancements.
-- Objective values improved across successive mesh refinements.
-- Two experiment families were used:
-  - exact-solution validation,
-  - parameter-sensitivity analysis.
+- \(F(v)\) is typically a tracking-type functional composed with a PDE solution operator,
+- \(TV(v)\) enforces compactness and prevents oscillatory chattering controls,
+- \(\mathcal{E}\) is a finite integer set.
 
-Key context:
+Total variation regularization restores existence of minimizers in function space and penalizes perimeter of level sets.
 
-- These statements are qualitative summaries from the thesis text.
-- Exact quantitative numbers should be taken from Chapter 4 tables/figures in the thesis PDF.
+The theoretical foundation (existence, BV compactness, L-stationarity, and \(\Gamma\)-convergence) follows the framework developed in the thesis.
 
-## Project Structure
+## Algorithmic Framework
 
-- `run_experiment.py`: primary entrypoint.
-- `trust_region_solver.py`, `trust_region_subproblem.py`: optimization flow.
-- `mip_subproblem.py`, `rt0_dual_solver.py`: subproblem solvers.
-- `synthetic_problem.py`: symbolic benchmark data generation.
-- `tests/`: lightweight unit tests for non-heavy logic.
+### Sequential Linear Integer Programming (SLIP)
 
-Legacy module names are still available as wrappers for compatibility (`go4it.py`, `trust_region_cb.py`, etc.).
+The optimization is solved with a **trust-region method in function space**:
+
+1. Linearize \(F\) at the current iterate \(\bar v\).
+2. Keep the TV term exact.
+3. Solve the trust-region subproblem:
+
+\[
+\min_v \, (\nabla F(\bar v), v - \bar v) + \omega TV(v)
+\]
+\[
+\text{s.t. } |v - \bar v|_{L^1} \le \Delta,
+\quad v(x) \in \mathcal{E}
+\]
+
+The discretized subproblem yields a **Mixed-Integer Linear Program (MILP)**.
+
+## Callback-Based Outer Approximation (Core Contribution)
+
+A key computational bottleneck is the discretized total variation term, represented through a Raviart-Thomas dual formulation and associated constraints.
+
+Instead of adding all TV constraints upfront, this implementation uses:
+
+### Lazy Constraint Callback (Gurobi)
+
+- Start with a relaxed MILP.
+- Detect violated TV constraints at incumbent solutions.
+- Add them dynamically via Gurobi lazy constraints.
+- Repeat until no relevant violations remain.
+
+This outer-approximation strategy:
+
+- reduces initial model size,
+- avoids unnecessary constraints,
+- preserves exactness of the discretized TV model,
+- improves runtime in practice.
+
+This corresponds to the on-demand lazy-constraint enhancement described in Chapter 3 of the thesis.
+
+## Discretization Strategy
+
+The implementation follows the dual-mesh construction from the thesis:
+
+- Fine mesh: integer-valued piecewise-constant controls.
+- Coarse mesh: discretized TV via lowest-order Raviart-Thomas elements.
+
+Mesh sizes are superlinearly coupled to support:
+
+- \(\Gamma\)-convergence of the discretized TV,
+- recovery of the correct total variation in the limit,
+- preservation of integer feasibility.
+
+This construction mitigates checkerboard null-space effects of naive discretizations.
+
+## Implementation Overview
+
+| Module | Purpose |
+| --- | --- |
+| `trust_region_solver.py` | Outer SLIP trust-region loop |
+| `trust_region_subproblem.py` | Trust-region subproblem coordinator |
+| `mip_subproblem.py` | MILP trust-region subproblem |
+| `rt0_dual_solver.py` | Discretized TV dual formulation |
+| `opt_tv_base.py` | TV operators and mesh coupling |
+| `opt_blur.py` | Objective and adjoint gradient |
+| `bvp_blur.py` | FEM state and adjoint solves (FEniCSx) |
+| `synthetic_problem.py` | Benchmark problem construction |
+| `run_experiment.py` | Main entry point |
+
+## Numerical Experiments
+
+The thesis evaluates:
+
+- exact-solution validation,
+- parameter sensitivity,
+- runtime and objective behavior under mesh refinement.
+
+The callback-based outer approximation shows:
+
+- reduced runtime,
+- maintained objective quality,
+- preserved integer feasibility,
+- better scalability than full upfront TV-constraint assembly.
 
 ## Installation
 
-### Option A: pip + requirements
+### Option 1 - pip
 
 ```bash
-python -m pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
-### Option B: conda
+### Option 2 - conda
 
 ```bash
 conda env create -f environment.yml
 conda activate tv-pde-inverse-problem
 ```
 
-## Reproducibility
+Requirements:
 
-Run the full quick reproduction pipeline:
+- Python 3.10+
+- FEniCSx / dolfinx
+- PETSc / petsc4py
+- Gurobi (with valid license)
+
+## Reproduction
 
 ```bash
 ./reproduce.sh
 ```
 
-Or via make:
+or
 
 ```bash
 make reproduce
 ```
 
-## Quality Checks
+## Limitations
 
-```bash
-python -m pip install ".[dev]"
-make ci
-```
-
-## Limitations and Known Issues
-
-- `dolfinx` + `petsc4py` + MPI setup can be platform-sensitive.
-- `gurobipy` requires a valid Gurobi installation/license.
-- Full experiment runs can be computationally expensive for fine meshes.
-- The included unit tests are intentionally lightweight and do not execute full FEM/MIP end-to-end solves.
+- Gurobi license required.
+- FEniCSx + MPI setup can be platform-sensitive.
+- Fine meshes lead to large MILPs.
+- Full experiments are computationally expensive.
 
 ## Citation
 
-If you use this code, please cite:
+If you use this repository, please cite:
 
-- this software repository (`CITATION.cff`), and
-- the associated master thesis (`master_thesis_Lars_Moesezahl .pdf`).
+- the associated master thesis,
+- this software repository (see `CITATION.cff`).
 
 ## License
 
-MIT License (see `LICENSE`).
+MIT License.
