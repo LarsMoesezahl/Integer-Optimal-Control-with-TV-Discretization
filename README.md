@@ -124,6 +124,49 @@ The callback-based outer approximation shows:
 - preserved integer feasibility,
 - better scalability than full upfront TV-constraint assembly.
 
+### First Numerical Experiment (Solved Problem)
+
+For the first numerical experiment, we solve problem $(P)$ on
+$\Omega = (0,2)^2$ with
+$\mathcal{E}=\{0,1\}$ and $\omega>0$.
+
+The reduced objective is
+
+$$
+F(v)=\frac12\|S(v+f)-y_d\|^2_{L^2(\Omega)},
+$$
+
+where $f,y_d\in L^2(\Omega)$ and the solution operator
+$S:L^2(\Omega)\to H_0^1(\Omega)$ is defined by:
+find $y=S(w)\in H_0^1(\Omega)$ such that
+
+$$
+-\nu\Delta y + y = w \quad \text{in }\Omega,
+\qquad
+y=0 \quad \text{on }\partial\Omega.
+$$
+
+With the construction from Section 3.1 of the thesis, the experiment solves
+
+$$
+\min_{v\in L^2(\Omega)}
+\Bigl\{F(v)+\omega\,TV(v)\Bigr\}
+\quad\text{s.t.}\quad
+v(x)\in\{0,1\}\ \text{a.e. in }\Omega.
+$$
+
+The benchmark uses a known optimal binary control
+$\bar v=\chi_D$ with
+$D=D_{0.5}(1,1)\subset\Omega$, i.e.
+
+$$
+\bar v(x)=
+\begin{cases}
+1, & x\in D,\\
+0, & x\in \Omega\setminus D.
+\end{cases}
+$$
+
 ## Installation
 
 ### Option 1 - pip
