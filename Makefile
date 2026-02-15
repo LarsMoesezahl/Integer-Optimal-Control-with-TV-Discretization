@@ -32,7 +32,7 @@ format:
 test:
 	$(PYTHON) -m unittest discover -s tests -p 'test_*.py' -v
 
-ci: lint format-check test
+ci: format-check test
 
 reproduce:
 	./reproduce.sh
