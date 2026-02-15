@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+title: "Integrating Total Variation Discretization into Patch-based Integer Optimal Control"
+message: "If you use this code, please cite the software and the accompanying thesis."
+type: software
+authors:
+  - family-names: "Moesezahl"
+    given-names: "Lars"
+repository-code: "https://github.com/<your-user>/<your-repo>"
+license: "MIT"
+version: "0.1.0"
+date-released: "2026-02-15"
+preferred-citation:
+  type: thesis
+  authors:
+    - family-names: "Moesezahl"
+      given-names: "Lars"
+  title: "Master Thesis"
+  institution: "TU Dortmund University"
+  year: 2025

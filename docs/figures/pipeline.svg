@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="240" viewBox="0 0 960 240">
+  <rect width="960" height="240" fill="#f8fafc"/>
+  <style>
+    .box { fill:#ffffff; stroke:#334155; stroke-width:2; rx:10; }
+    .title { font: 600 18px Arial, sans-serif; fill:#0f172a; }
+    .text { font: 14px Arial, sans-serif; fill:#1e293b; }
+    .arrow { stroke:#475569; stroke-width:2; marker-end:url(#m); }
+  </style>
+  <defs>
+    <marker id="m" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <rect class="box" x="30" y="60" width="170" height="120"/>
+  <text class="title" x="45" y="95">Synthetic Problem</text>
+  <text class="text" x="45" y="125">build_synthetic_problem</text>
+  <text class="text" x="45" y="145">f, u_d, exact control</text>
+
+  <line class="arrow" x1="200" y1="120" x2="250" y2="120"/>
+
+  <rect class="box" x="250" y="60" width="180" height="120"/>
+  <text class="title" x="265" y="95">PDE Solve</text>
+  <text class="text" x="265" y="125">BvpBlur (FEniCSx)</text>
+  <text class="text" x="265" y="145">state + adjoint systems</text>
+
+  <line class="arrow" x1="430" y1="120" x2="485" y2="120"/>
+
+  <rect class="box" x="485" y="60" width="215" height="120"/>
+  <text class="title" x="500" y="95">Trust-Region Optimization</text>
+  <text class="text" x="500" y="125">MIP subproblem + lazy cuts</text>
+  <text class="text" x="500" y="145">TV regularization</text>
+
+  <line class="arrow" x1="700" y1="120" x2="750" y2="120"/>
+
+  <rect class="box" x="750" y="60" width="180" height="120"/>
+  <text class="title" x="765" y="95">Outputs</text>
+  <text class="text" x="765" y="125">Recovered control</text>
+  <text class="text" x="765" y="145">Logs + plots</text>
+</svg>

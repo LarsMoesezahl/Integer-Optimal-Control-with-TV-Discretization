@@ -1,0 +1,17 @@
+# Core scientific stack
+numpy==1.26.4
+scipy==1.13.1
+sympy==1.13.3
+matplotlib==3.9.2
+
+# Optimization and PDE stack
+gurobipy==12.0.0
+dolfinx==0.8.0
+ufl==2024.2.0
+mpi4py==4.0.1
+petsc4py==3.22.2
+
+# Dev tools
+black==24.10.0
+ruff==0.9.7
+pytest==8.3.5

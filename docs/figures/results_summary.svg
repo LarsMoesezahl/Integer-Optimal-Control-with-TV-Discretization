@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="320" viewBox="0 0 960 320">
+  <rect width="960" height="320" fill="#ffffff"/>
+  <style>
+    .title { font: 700 22px Arial, sans-serif; fill:#0f172a; }
+    .sub { font: 14px Arial, sans-serif; fill:#334155; }
+    .label { font: 13px Arial, sans-serif; fill:#1e293b; }
+    .barA { fill:#0284c7; }
+    .barB { fill:#16a34a; }
+    .axis { stroke:#64748b; stroke-width:1.5; }
+  </style>
+
+  <text class="title" x="40" y="45">Thesis-Reported Outcomes (Qualitative Summary)</text>
+  <text class="sub" x="40" y="70">Based on abstract and Chapter 4/5 descriptions in the thesis.</text>
+
+  <line class="axis" x1="90" y1="260" x2="860" y2="260"/>
+  <line class="axis" x1="90" y1="100" x2="90" y2="260"/>
+
+  <rect class="barA" x="160" y="170" width="170" height="90" rx="6"/>
+  <rect class="barB" x="420" y="130" width="170" height="130" rx="6"/>
+  <rect class="barA" x="680" y="145" width="170" height="115" rx="6"/>
+
+  <text class="label" x="175" y="285">Runtime behavior</text>
+  <text class="label" x="425" y="285">Objective trend</text>
+  <text class="label" x="705" y="285">Mesh refinement</text>
+
+  <text class="sub" x="150" y="160">improved</text>
+  <text class="sub" x="420" y="120">improved</text>
+  <text class="sub" x="675" y="135">robust</text>
+</svg>
