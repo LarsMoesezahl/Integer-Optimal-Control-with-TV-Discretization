@@ -18,7 +18,7 @@ We consider integer optimal control problems of the form
 
 $$
 \min_{v \in L^2(\Omega)}
-J(v) = F(v) + \omega \, TV(v)
+J(v) = F(v) + \omega \* TV(v)
 $$
 
 subject to
