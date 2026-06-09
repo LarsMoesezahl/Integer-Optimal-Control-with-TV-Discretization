@@ -49,7 +49,7 @@ The optimization is solved with a **trust-region method in function space**:
 3. Solve the trust-region subproblem:
 
 $$
-\min_v \, (\nabla F(\bar v), v - \bar v) + \omega TV(v)
+\min_v (\nabla F(\bar v), v - \bar v) + \omega TV(v)
 $$
 $$
 \text{s.t. } |v - \bar v|_{L^1} \le \Delta,
